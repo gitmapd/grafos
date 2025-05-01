@@ -1,4 +1,7 @@
 from collections import namedtuple
+from itertools import combinations
+
+from pyvis.network import Network
 
 Graph = namedtuple("Graph",["nodes","edges","is_directed"])
 nodes = ["A","B","C","D"]
@@ -46,6 +49,20 @@ edges = [
     (1,3),
     (2,3),
 ]
-#G = Graph(nodes,edges,is_directed=False)
+
+def show(graph, output_filename):
+    """
+    Saves an HTML file locally containing a
+    visualization of the graph, and returns
+    a pyvis Network instance of the graph.
+    """
+    g = Network(directed=graph.is_directed)
+    g.add_nodes(graph.nodes)
+    g.add_edges(graph.edges)
+    g.show(output_filename)
+    return g
+G = Graph(nodes,edges,is_directed=False)
 #print(adjacency_dict(G))
 #print(G)
+
+show(G,"basic.html")
